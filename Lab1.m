@@ -62,6 +62,16 @@ imhist(hist_pic_again, 10);
 figure
 imhist(hist_pic_again, 255);
 
+% apply histogram equalization yet again
+hist_pic_again_again = histeq(hist_pic_again, 255);
+ 
+% redisplay histograms yet again
+figure
+imhist(hist_pic_again_again, 10);
+ 
+figure
+imhist(hist_pic_again_again, 255);
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 1.3 LINEAR SPATIAL FILTERING                                          %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -134,6 +144,9 @@ filtered_speckled_pic_i = uint8(conv2(speckle_img, filter_i, 'same'));
 filtered_speckled_pic_ii = uint8(conv2(speckle_img, filter_ii, 'same'));
 
 % display images
+figure
+imshow(speckle_img);
+
 figure
 imshow(filtered_speckled_pic_i);
 
@@ -249,6 +262,7 @@ imshow(improved_processed_interference_pic)
 
 % get primate cage image
 interference_pic = rgb2gray(imread('primate-caged.jpg'));
+figure
 imshow(interference_pic)
 
 % obtaining Fourier transform of image using fft2
@@ -306,6 +320,7 @@ imshow(processed_interference_pic)
 
 % display slanted book image
 slant_image = imread('book.jpg');
+figure
 imshow(slant_image)
 
 % get four edges of the book
