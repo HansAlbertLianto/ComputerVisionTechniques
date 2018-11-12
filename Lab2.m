@@ -156,10 +156,61 @@ yr = (C - A * xr) / B;
 % display image with line obtained by Radon transform
 figure
 imshow(running_img)
-line([xl xr], [yl yr]);
+line([xl xr], [yl yr])
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 2.3 PIXEL INTENSITY SUM-OF-SQUARES DIFFERENCE (SSD) AND 3D STEREO     %
 %     VISION                                                            %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% display two stereo images
+stereo_img_l = rgb2gray(imread('corridorl.jpg'));
+stereo_img_r = rgb2gray(imread('corridorr.jpg'));
+
+figure
+imshow(stereo_img_l)
+
+figure
+imshow(stereo_img_r)
+
+% get disparity map of left image
+map = disparity_map(stereo_img_l, stereo_img_r, 11, 11);
+
+% display disparity map and ideal disparity map
+figure
+imshow(map, [-15 15])
+
+ideal_stereo_img = imread('corridor_disp.jpg');
+figure
+imshow(ideal_stereo_img)
+
+% display two stereo images
+triclops_img_l = rgb2gray(imread('triclops-i2l.jpg'));
+triclops_img_r = rgb2gray(imread('triclops-i2r.jpg'));
+
+figure
+imshow(triclops_img_l)
+
+figure
+imshow(triclops_img_r)
+
+% get disparity map of left image
+map = disparity_map(triclops_img_l, triclops_img_r, 11, 11);
+
+% display disparity map
+figure
+imshow(map, [-15 15])
+
+ideal_stereo_img = imread('triclops-id.jpg');
+figure
+imshow(ideal_stereo_img)
+
+% get disparity map of left image
+map = disparity_map(triclops_img_l, triclops_img_r, 21, 21);
+
+% display disparity map
+figure
+imshow(map, [-15 15])
+
+
 
