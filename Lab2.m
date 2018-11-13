@@ -8,6 +8,9 @@
 %                    by Hans Albert Lianto, U1620116K                   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Set preferences
+iptsetpref('ImshowAxesVisible', 'off');
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 2.1 EDGE DETECTION                                                    %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -52,6 +55,12 @@ sobel_threshold_img_30000 = uint8(sobel_img > 30000) .* 255;
 sobel_threshold_img_40000 = uint8(sobel_img > 40000) .* 255;
 sobel_threshold_img_50000 = uint8(sobel_img > 50000) .* 255;
 sobel_threshold_img_60000 = uint8(sobel_img > 60000) .* 255;
+sobel_threshold_img_70000 = uint8(sobel_img > 70000) .* 255;
+sobel_threshold_img_80000 = uint8(sobel_img > 80000) .* 255;
+sobel_threshold_img_90000 = uint8(sobel_img > 90000) .* 255;
+sobel_threshold_img_100000 = uint8(sobel_img > 100000) .* 255;
+sobel_threshold_img_110000 = uint8(sobel_img > 110000) .* 255;
+sobel_threshold_img_120000 = uint8(sobel_img > 120000) .* 255;
 
 % display thresholded images
 figure
@@ -72,6 +81,24 @@ imshow(sobel_threshold_img_50000)
 figure
 imshow(sobel_threshold_img_60000)
 
+figure
+imshow(sobel_threshold_img_70000)
+
+figure
+imshow(sobel_threshold_img_80000)
+
+figure
+imshow(sobel_threshold_img_90000)
+
+figure
+imshow(sobel_threshold_img_100000)
+
+figure
+imshow(sobel_threshold_img_110000)
+
+figure
+imshow(sobel_threshold_img_120000)
+
 % recompute binary border image using Canny edge detection
 tl = [0, 0.02, 0.04, 0.06, 0.08];
 th = 0.1;
@@ -83,10 +110,10 @@ canny_img_sigma_3 = edge(running_img, 'canny', [tl(3) th], sigma(3));
 canny_img_sigma_4 = edge(running_img, 'canny', [tl(3) th], sigma(4)); 
 canny_img_sigma_5 = edge(running_img, 'canny', [tl(3) th], sigma(5)); 
 
-canny_img_tl_1 = edge(running_img, 'canny', [tl(1) th], sigma(1));
-canny_img_tl_2 = edge(running_img, 'canny', [tl(2) th], sigma(1));
-canny_img_tl_3 = edge(running_img, 'canny', [tl(4) th], sigma(1));
-canny_img_tl_4 = edge(running_img, 'canny', [tl(5) th], sigma(1));
+canny_img_tl_1 = edge(running_img, 'canny', [tl(1) th], sigma(2));
+canny_img_tl_2 = edge(running_img, 'canny', [tl(2) th], sigma(2));
+canny_img_tl_3 = edge(running_img, 'canny', [tl(4) th], sigma(2));
+canny_img_tl_4 = edge(running_img, 'canny', [tl(5) th], sigma(2));
 
 % display all images
 figure
@@ -148,10 +175,13 @@ B = -B;
 C = A * (A + size(combined_image, 2) / 2) + B * (B + size(combined_image, 1) / 2);
 
 % project line onto image
-xl = 0;
-xr = size(combined_image, 2) - 1;
+xl = 1;
+xr = size(combined_image, 2);
 yl = (C - A * xl) / B;
 yr = (C - A * xr) / B;
+
+% reset preferences
+iptsetpref('ImshowAxesVisible', 'off');
 
 % display image with line obtained by Radon transform
 figure
@@ -211,6 +241,4 @@ map = disparity_map(triclops_img_l, triclops_img_r, 21, 21);
 % display disparity map
 figure
 imshow(map, [-15 15])
-
-
 
